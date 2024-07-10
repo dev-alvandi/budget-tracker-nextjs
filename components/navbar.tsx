@@ -20,7 +20,7 @@ export const Navbar = () => {
   );
 };
 
-const navItems = [
+export const navItems = [
   {
     label: "Dashboard",
     link: "/",
@@ -96,7 +96,7 @@ const DesktopNavbar = () => {
   );
 };
 
-const NavbarItem = ({
+export const NavbarItem = ({
   link,
   label,
   clickCallback,
@@ -111,6 +111,7 @@ const NavbarItem = ({
   return (
     <div className="relative flex items-center">
       <Link
+        data-testid={`link-${label.toLowerCase()}`}
         className={cn(
           buttonVariants({
             variant: "ghost",
