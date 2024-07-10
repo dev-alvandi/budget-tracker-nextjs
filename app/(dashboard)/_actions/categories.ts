@@ -98,7 +98,37 @@ export const DeleteCategory = async (form: DeleteCategorySchemaType) => {
 
   const { name, type, id } = parsedBody.data;
 
-  const targetCategory = await prisma.category.findUnique({
+  const relatedTransactions = await prisma.transaction.findMany({
+    where: {
+      userId: user.id,
+      categoryId: id,
+    },
+  });
+
+  relatedTransactions.forEach(async (relatedTransaction) => {
+    const deleteRelatedMonthHistory = await prisma.monthHistory.delete({
+      where: {
+        day_month_year_userId: {
+          userId: user.id,
+          day: relatedTransaction.date.getUTCDay(),
+          month: relatedTransaction.date.getUTCMonth(),
+          year: relatedTransaction.date.getUTCFullYear(),
+        },
+      },
+    });
+
+    const deleteRelatedYearHistory = await prisma.yearHistory.delete({
+      where: {
+        month_year_userId: {
+          userId: user.id,
+          month: relatedTransaction.date.getUTCMonth(),
+          year: relatedTransaction.date.getUTCFullYear(),
+        },
+      },
+    });
+  });
+
+  const deletingCategory = await prisma.category.delete({
     where: {
       name_userId_type_id: {
         userId: user.id,
@@ -109,16 +139,5 @@ export const DeleteCategory = async (form: DeleteCategorySchemaType) => {
     },
   });
 
-  const deletingCat = await prisma.category.delete({
-    where: {
-      name_userId_type_id: {
-        userId: user.id,
-        id,
-        type,
-        name,
-      },
-    },
-  });
-
-  return deletingCat;
+  return deletingCategory;
 };
