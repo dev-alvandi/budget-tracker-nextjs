@@ -47,7 +47,7 @@ model Transaction {
   type        String   @default("income")
 
   categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model MonthHistory {

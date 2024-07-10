@@ -98,11 +98,27 @@ export const DeleteCategory = async (form: DeleteCategorySchemaType) => {
 
   const { name, type, id } = parsedBody.data;
 
-  return await prisma.category.delete({
+  const targetCategory = await prisma.category.findUnique({
     where: {
-      userId: user.id,
-      id,
-      type,
+      name_userId_type_id: {
+        userId: user.id,
+        id,
+        type,
+        name,
+      },
     },
   });
+
+  const deletingCat = await prisma.category.delete({
+    where: {
+      name_userId_type_id: {
+        userId: user.id,
+        id,
+        type,
+        name,
+      },
+    },
+  });
+
+  return deletingCat;
 };
