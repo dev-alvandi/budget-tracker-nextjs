@@ -22,7 +22,10 @@ const WizardPage = async () => {
     <div className="container max-w-2xl flex flex-col items-center justify-between gap-4">
       <div>
         <h1 className="text-center text-3xl">
-          Welcome, <span className="ml-2 font-bold">{user.firstName}! 👋</span>
+          Welcome,{" "}
+          <span className="ml-2 font-bold capitalize">
+            {user.firstName}! 👋
+          </span>
         </h1>
 
         <h2 className="mt-4 text-center text-base text-muted-foreground">
