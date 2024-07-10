@@ -102,7 +102,6 @@ export const DeleteCategory = async (form: DeleteCategorySchemaType) => {
     where: {
       userId: user.id,
       id,
-      name,
       type,
     },
   });
