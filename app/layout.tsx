@@ -9,8 +9,8 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Budget Tracker",
-  description: "A budget tracker app build on Next.js",
+  title: "Budget Analysis",
+  description: "A budget analysis app build on Next.js",
 };
 
 export default function RootLayout({
