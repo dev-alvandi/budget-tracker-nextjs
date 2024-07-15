@@ -33,7 +33,7 @@ export const DeleteTransaction = async (id: string) => {
       where: {
         day_month_year_userId: {
           userId: user.id,
-          day: transaction.date.getUTCDay(),
+          day: transaction.date.getUTCDate(),
           month: transaction.date.getUTCMonth(),
           year: transaction.date.getUTCFullYear(),
         },

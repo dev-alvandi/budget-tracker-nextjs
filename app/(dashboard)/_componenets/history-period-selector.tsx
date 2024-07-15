@@ -31,6 +31,8 @@ const HistoryPeriodSelector = ({
     queryFn: () => fetch("/api/history-periods").then((res) => res.json()),
   });
 
+  console.log(historyPeriods.data);
+
   return (
     <div className="flex flex-wrap items-center gap-4">
       <SkeletonWrapper isLoading={historyPeriods.isFetching} fullWidth={false}>

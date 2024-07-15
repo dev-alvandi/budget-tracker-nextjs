@@ -58,7 +58,7 @@ const getHistoryData = async (
     case "month":
       return await getMonthHistoryData(userId, period.year, period.month);
   }
-}; //! 3:26:52
+};
 
 type HistoryDaya = {
   expense: number;
@@ -136,6 +136,8 @@ const getMonthHistoryData = async (
       },
     ],
   });
+
+  console.log(res);
 
   if (!res || res.length === 0) {
     return [];

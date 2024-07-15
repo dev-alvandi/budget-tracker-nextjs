@@ -22,6 +22,8 @@ export const CreateTransaction = async (form: CreateTransactionSchemaType) => {
 
   const { amount, categoryId, date, description, type } = parsedBody.data;
 
+  console.log(date);
+
   const categoryRow = await prisma.category.findFirst({
     where: {
       userId: user.id,
@@ -49,7 +51,7 @@ export const CreateTransaction = async (form: CreateTransactionSchemaType) => {
       where: {
         day_month_year_userId: {
           userId: user.id,
-          day: date.getUTCDay(),
+          day: date.getUTCDate(),
           month: date.getUTCMonth(),
           year: date.getUTCFullYear(),
         },
@@ -57,7 +59,7 @@ export const CreateTransaction = async (form: CreateTransactionSchemaType) => {
 
       create: {
         userId: user.id,
-        day: date.getUTCDay(),
+        day: date.getUTCDate(),
         month: date.getUTCMonth(),
         year: date.getUTCFullYear(),
         expense: type === "expense" ? amount : 0,
