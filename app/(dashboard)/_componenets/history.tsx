@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GetFormattedForCurrency } from "@/lib/helpers";
 import { Period, TimeFrame } from "@/lib/types";
-import { UserSettings } from "@prisma/client";
+import { UserSettings, YearHistory } from "@prisma/client";
 import { useCallback, useMemo, useState } from "react";
 import HistoryPeriodSelector from "./history-period-selector";
 import { useQuery } from "@tanstack/react-query";
@@ -45,8 +45,20 @@ const History = ({ userSettings }: PropsTypes) => {
       ).then((res) => res.json()),
   });
 
+  const totalExpense = historyDataQuery.data.reduce(
+    (total: number, curr: YearHistory) => total + curr.expense,
+    0
+  );
+
+  const totalIncome = historyDataQuery.data.reduce(
+    (total: number, curr: YearHistory) => total + curr.income,
+    0
+  );
+
   const dataAvailable =
-    historyDataQuery.data && historyDataQuery.data.length > 0;
+    historyDataQuery.data &&
+    historyDataQuery.data.length > 0 &&
+    (totalExpense > 0 || totalIncome > 0);
 
   return (
     <div className="container">

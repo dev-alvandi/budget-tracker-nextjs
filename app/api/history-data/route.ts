@@ -137,8 +137,6 @@ const getMonthHistoryData = async (
     ],
   });
 
-  console.log(res);
-
   if (!res || res.length === 0) {
     return [];
   }
