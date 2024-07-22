@@ -45,15 +45,21 @@ const History = ({ userSettings }: PropsTypes) => {
       ).then((res) => res.json()),
   });
 
-  const totalExpense = historyDataQuery.data.reduce(
-    (total: number, curr: YearHistory) => total + curr.expense,
-    0
-  );
+  const totalExpense =
+    historyDataQuery.data &&
+    historyDataQuery.data.length &&
+    historyDataQuery.data.reduce(
+      (total: number, curr: YearHistory) => total + curr.expense,
+      0
+    ) | 0;
 
-  const totalIncome = historyDataQuery.data.reduce(
-    (total: number, curr: YearHistory) => total + curr.income,
-    0
-  );
+  const totalIncome =
+    historyDataQuery.data &&
+    historyDataQuery.data.length &&
+    historyDataQuery.data.reduce(
+      (total: number, curr: YearHistory) => total + curr.income,
+      0
+    ) | 0;
 
   const dataAvailable =
     historyDataQuery.data &&
